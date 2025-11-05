@@ -121,7 +121,6 @@ impl MyApp {
                         self.status_message = "The transfer has been canceled..".to_string();
                         self.reset_send_state();
                     }
-                    _ => {}
                 }
             }
         }

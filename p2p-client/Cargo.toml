@@ -1,4 +1,3 @@
-# Файл: p2p-client/Cargo.toml
 [package]
 name = "p2p-client"
 version = "0.1.0"
