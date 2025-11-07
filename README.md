@@ -1,19 +1,19 @@
 # rust-p2p-file-transfer
-Peer-to-peer (P2P) file transfer application built with Rust and libp2p.
-
+Peer-to-peer (P2P) file transfer application built with Rust.
+![Demo ticked](./ticked.gif)
+![Demo web](./web.gif)
 ## About The Project
 
-This application allows users to establish a direct connection and transfer files using an intuitive desktop interface, bypassing centralized servers for the data transfer itself. The project consists of two main components:
+This application allows users to establish a direct connection and transfer files using an intuitive desktop interface, bypassing centralized servers for the data transfer itself. The project consists of a full-featured desktop application (`p2p-client`) that users run to send and receive files.
 
-1.  **Signal Server (`signal-server`)**: A lightweight intermediary server that helps clients "find" each other on the network (Peer Discovery) and establish a direct connection.
-2.  **P2P Client (`p2p-client`)**: A full-featured desktop application that users run to send and receive files through a graphical interface.
+It also includes a revolutionary feature to generate a public web link, allowing anyone to download a file directly from the user's computer via a web browser.
 
 ## Key Features
 
--   **Intuitive Desktop GUI**: A user-friendly graphical interface for managing transfers and viewing online peers.
--   **Direct File Transfer**: Files are transferred directly from one peer to another, ensuring privacy and speed.
--   **Automatic NAT Traversal**: Utilizes `libp2p`'s capabilities to establish connections between peers behind most routers.
--   **Peer Discovery**: Easily see which other users are currently online and available for transfers.
+-   **Intuitive Desktop GUI**: A user-friendly graphical interface for managing transfers with drag-and-drop support.
+-   **Direct File Transfer**: Files are transferred directly from one peer to another using **Iroh tickets**, ensuring privacy and speed.
+-   **Universal Web Link Transfer**: Generate a public URL to share a file with anyone, no special software required for the recipient.
+-   **Automatic NAT Traversal**: Utilizes `Iroh`'s capabilities to establish connections between peers behind most routers.
 -   **Cross-Platform**: Built to run on Windows, macOS, and Linux.
 
 ## Technology Stack
@@ -22,25 +22,21 @@ This application allows users to establish a direct connection and transfer file
 -   **Language**: `Rust`
 -   **Asynchronous Runtime**: `tokio`
 -   **Serialization**: `serde`
--   **Logging**: `tracing`
 
 ### P2P Client (Desktop App)
 -   **GUI Framework**: `egui` - For building the cross-platform graphical user interface.
--   **P2P Networking**: `libp2p-rs` - The core engine for peer discovery, connection management, and data transfer.
+-   **P2P Networking**: `Iroh` - The core engine for peer discovery, connection management, and data transfer.
+-   **Web Link Server**: `axum` & `ngrok` - For serving files over a public URL.
 -   **Native File Dialogs**: `rfd` (Rust File Dialog) - For system-native "Open File" windows.
 
-### Signal Server
--   **Web Framework**: `axum` - For handling HTTP and WebSocket connections from clients.
--   **Real-time Messaging**: `WebSockets` (via `axum`) - For instant communication during the peer connection setup.
-
 ## Roadmap
--   [ ] **MVP**:
-    -   [ ] Implement the basic signaling server using `axum` + `WebSocket`.
-    -   [ ] Set up the basic desktop application window using `egui`.
-    -   [ ] Implement core `libp2p` logic for connecting to the signal server and discovering other peers.
-    -   [ ] Establish a P2P connection between two clients on a local network.
-    -   [ ] Implement the transfer of a file, initiated from the GUI.
--   [ ] **Phase 2 - Features & Reliability**:
-    -   [ ] Improve NAT Traversal mechanisms (e.g., hole punching, relays).
-    -   [ ] Implement reliable large file transfer (chunking, progress tracking, resuming).
-    -   [ ] Refine the user interface and user experience (e.g., transfer history, settings).
+-   [+] **MVP**:
+    -   [+] Implement a basic signaling mechanism. *(Achieved using Iroh's public relay network instead of a custom server).*
+    -   [+] Set up the basic desktop application window using `egui`.
+    -   [+] Implement core P2P logic for connecting and discovering other peers.
+    -   [+] Establish a P2P connection between two clients on a local network.
+    -   [+] Implement the transfer of a file, initiated from the GUI.
+-   [+] **Phase 2 - Features & Reliability**:
+    -   [+] Improve NAT Traversal mechanisms (e.g., hole punching, relays).
+    -   [+] Implement reliable large file transfer (chunking, progress tracking).
+    -   [+] Refine the user interface and user experience (drag & drop, background transfers).
